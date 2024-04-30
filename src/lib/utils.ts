@@ -7,7 +7,8 @@ export const connectToDb = async (): Promise<void> => {
     if (mongoose.connection.readyState === 1) {
       return;
     }
-    await mongoose.connect(DB_URI);
+    const db = await mongoose.connect(DB_URI);
+    const isConnected = db.connections[0].readyState;
     console.log("몽고디비와의 연결상태:", mongoose.connection.readyState);
   } catch (error) {
     console.log(error);
